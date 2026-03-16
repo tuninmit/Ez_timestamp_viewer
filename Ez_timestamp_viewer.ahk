@@ -15,22 +15,22 @@ OnClipboardChange(clipChanged)
 
 ;---Functions---
 clipChanged(DataType) {
-    global appEnabled
-
-    if (!appEnabled)
-        return
-
-    ;ignore non-text data
-    if (DataType != 1)
-        return
-
-    ;timestamp often has length 10 or 13
-    rawData := A_Clipboard
-    if (StrLen(rawData) != 13 && StrLen(rawData) != 10)
-        return
-
-    ;convert timestamp to readable text
     try {
+        global appEnabled
+
+        if (!appEnabled)
+            return
+
+        ;ignore non-text data
+        if (DataType != 1)
+            return
+
+        ;timestamp often has length 10 or 13
+        rawData := A_Clipboard
+        if (StrLen(rawData) != 13 && StrLen(rawData) != 10)
+            return
+
+        ;convert timestamp to readable text
         rawData := SubStr(rawData, 1, 10)
         timestamp := Number(rawData)
         date := unixTimeToHumanReadable(timestamp)
